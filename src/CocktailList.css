@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.shopping-list {
+  min-width: 250px;
+  border: 4px dotted transparent;
+  border-color: black;
+  display: flex;
+  flex-direction: column;
+}
+
+.cocktail-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.drink-container {
+  display: flex;
+  border: 4px solid transparent;
+  border-color: black;
+  margin-bottom: 40px;
+  margin-right: 40px;
+}
+
+.drink-img {
+  margin: 40px;
+}
+
+.drink-details {
+  margin-left: 5px;
+}
+
+.drink-name {
+  margin-top: 40px;
+  color: DodgerBlue;
+  font-family: Arial;
+}
+
+.drink-instructions {
+  min-width: 450px;
+}
+
+.ingredients-name {
+  text-align: left;
+}
+
+.add-drink-button {
+  align-self: flex-end;
+  margin: 30px;
+  text-align: center;
+
+  min-height: 40px;
+  min-width: 40px;
+  max-height: 40px;
+  max-width: 40px;
+}

@@ -5,8 +5,8 @@ import CocktailList from './CocktailList';
 const App = () => {
   return (
     <>
-      <Header></Header>
-      <CocktailList></CocktailList>
+      <Header />
+      <CocktailList />
     </>
   );
 };
