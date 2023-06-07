@@ -1,7 +1,14 @@
 import React from 'react';
+import Header from './Header';
+import CocktailList from './CocktailList';
 
 const App = () => {
-  return <h1>Welcome to cocktail assistant</h1>;
+  return (
+    <>
+      <Header></Header>
+      <CocktailList></CocktailList>
+    </>
+  );
 };
 
 export default App;
