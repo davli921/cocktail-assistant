@@ -7,6 +7,8 @@ const CocktailList = () => {
   const [cocktailName, setCocktailName] = useState('margarita');
   const [userInput, setUserInput] = useState('margarita');
   const [shoppingList, setShoppingList] = useState([shoppingItem]);
+  const [cocktailData, setCocktailData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const addToShoppingList = async (cocktailId) => {
     const cocktailDetailsUrl =
@@ -46,9 +48,9 @@ const CocktailList = () => {
     for (const ingredient of ingredientsList) {
       if (ingredient != null) {
         if (shoppingList.includes(ingredient)) {
-          console.log('Duplicate REMOVED!');
+          console.log('Ingredient removed from shopping list.');
         } else {
-          console.log('Ingridient added');
+          console.log('Ingredients added to shopping list.');
           ingredients.push(ingredient);
         }
       }
@@ -59,8 +61,19 @@ const CocktailList = () => {
     setShoppingList(newShoppingList);
   };
 
-  const [cocktailData, setCocktailData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const printShoppingList = () => {
+    var prtContent = document.getElementById('print-shopping-list');
+    var WinPrint = window.open(
+      '',
+      '',
+      'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0'
+    );
+    WinPrint.document.write(prtContent.innerHTML);
+    WinPrint.document.close();
+    WinPrint.focus();
+    WinPrint.print();
+    WinPrint.close();
+  };
 
   const fetchCocktails = async (cocktailName) => {
     setLoading(true);
@@ -77,9 +90,10 @@ const CocktailList = () => {
       const json = await response.json();
 
       if (json.drinks != null) {
+        console.log('Here are the results.');
         setCocktailData(json.drinks);
       } else {
-        console.log('Try searching for another drink.');
+        console.log('No results found.');
       }
     }
 
@@ -91,7 +105,7 @@ const CocktailList = () => {
   }, [cocktailName]);
 
   if (loading) {
-    return <></>; // Loading...
+    return <></>; // Searching...
   }
   return (
     <>
@@ -202,11 +216,16 @@ const CocktailList = () => {
         </div>
 
         <div className="shopping-list">
-          {shoppingList.map((shoppingItem) => (
-            <div key={shoppingItem}>
-              <p>{shoppingItem}</p>
-            </div>
-          ))}
+          <div id="print-shopping-list">
+            {shoppingList.map((shoppingItem) => (
+              <div key={shoppingItem}>
+                <p>{shoppingItem}</p>
+              </div>
+            ))}
+          </div>
+          <button className="print-button" onClick={(e) => printShoppingList()}>
+            PRINTTTTT
+          </button>
         </div>
       </div>
     </>

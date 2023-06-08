@@ -6,32 +6,38 @@
 .search {
   min-width: 50%;
   text-align: center;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .search-bar {
   min-width: 50%;
   height: 30px;
   text-align: left;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .search-button {
   height: 30px;
   text-align: center;
   margin-left: 5px;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .shopping-list {
   min-width: 250px;
+  min-height: 705px;
+  block-size: fit-content;
   border: 4px dotted transparent;
   border-color: black;
   display: flex;
   flex-direction: column;
+}
+
+.print-button {
+  margin: 10px;
 }
 
 .cocktail-list {
