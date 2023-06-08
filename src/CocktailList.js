@@ -7,7 +7,7 @@ const CocktailList = () => {
   const [shoppingList, setShoppingList] = useState([]);
   const [cocktailData, setCocktailData] = useState([]);
 
-  function displayToasterMessage(toastName) {
+  function displayToasterMessage(toastName, delay = 3000) {
     console.log(toastName);
     let toastId = '';
     switch (toastName) {
@@ -39,7 +39,7 @@ const CocktailList = () => {
         'toaster-show',
         'toaster'
       );
-    }, 3000);
+    }, delay);
   }
 
   const addToShoppingList = async (cocktailId) => {
@@ -82,7 +82,7 @@ const CocktailList = () => {
         if (shoppingList.includes(ingredient)) {
           displayToasterMessage('remove-ingredient');
         } else {
-          displayToasterMessage('add-ingredient');
+          displayToasterMessage('add-ingredient', 6000);
           ingredients.push(ingredient);
         }
       }
