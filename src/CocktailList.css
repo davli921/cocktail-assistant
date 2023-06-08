@@ -1,17 +1,25 @@
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
-.search {
-  min-width: 50%;
+.search-container {
+  align-self: center;
+  display: flex;
+  width: 50%;
   text-align: center;
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
+@media (max-width: 600px) {
+  .search-container {
+    width: 100%;
+  }
+}
+
 .search-bar {
-  min-width: 50%;
+  flex: 9;
   height: 30px;
   text-align: left;
   margin-top: 10px;
@@ -19,22 +27,47 @@
 }
 
 .search-button {
-  height: 30px;
+  flex: 1;
+  width: 9.75%;
+  height: 36px;
+  min-width: 65px;
   text-align: center;
-  margin-left: 5px;
+  margin-left: 0.25%;
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
+.main-container {
+  display: flex;
+  flex-direction: row;
+}
+
+@media (max-width: 840px) {
+  .main-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .shopping-list {
   position: relative;
-  min-width: 250px;
+  width: 27.5%;
+  margin-right: 5%;
   min-height: 705px;
   block-size: fit-content;
   border: 4px dotted transparent;
   border-color: black;
-  display: flex;
   flex-direction: column;
+  display: flex;
+}
+
+@media (max-width: 840px) {
+  .shopping-list {
+    width: 80%;
+    min-height: 100px;
+    margin-right: 10%;
+    margin-left: 10%;
+  }
 }
 
 .shopping-item {
@@ -43,6 +76,7 @@
 
 .print-button {
   margin: 30px;
+  margin-top: auto;
   text-align: center;
 
   min-height: 40px;
@@ -51,25 +85,48 @@
   max-width: 40px;
 }
 
-.cocktail-list {
+.drink-list {
+  width: 60%;
   display: flex;
   flex-direction: column;
+  margin-right: 2.5%;
+  margin-left: 5%;
+}
+
+@media (max-width: 840px) {
+  .drink-list {
+    width: 90%;
+  }
 }
 
 .drink-container {
   display: flex;
   border: 4px solid transparent;
   border-color: black;
-  margin-bottom: 40px;
-  margin-right: 40px;
+  margin-bottom: 2.5%;
 }
 
 .drink-img {
-  margin: 40px;
+  min-width: 25%;
+  margin: 5%;
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1200px) {
+  .drink-img {
+    width: 80px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 600px) {
+  .drink-img {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .drink-details {
-  margin-left: 5px;
+  min-width: 50%;
 }
 
 .drink-name {
@@ -79,7 +136,12 @@
 }
 
 .drink-instructions {
-  min-width: 1020px;
+}
+
+@media (max-width: 600px) {
+  .drink-instructions {
+    min-width: 100%;
+  }
 }
 
 .ingredients-name {
@@ -99,6 +161,7 @@
 
 .toast-group {
   display: grid;
+  position: absolute;
   justify-items: center;
   justify-content: center;
   gap: 1vh;
@@ -118,6 +181,7 @@
   right: 10px;
   bottom: 30px;
   visibility: visible;
+  display: block;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }

@@ -2,42 +2,43 @@ import React, { useEffect, useState } from 'react';
 import './CocktailList.css';
 
 const CocktailList = () => {
-  let shoppingItem = [];
-
-  const [cocktailName, setCocktailName] = useState('margarita');
-  const [userInput, setUserInput] = useState('margarita');
-  const [shoppingList, setShoppingList] = useState([shoppingItem]);
+  const [cocktailName, setCocktailName] = useState('Margarita');
+  const [userInput, setUserInput] = useState('Margarita');
+  const [shoppingList, setShoppingList] = useState([]);
   const [cocktailData, setCocktailData] = useState([]);
 
-  function displayToasterMessage(toastIdNumber) {
-    console.log(toastIdNumber);
+  function displayToasterMessage(toastName) {
+    console.log(toastName);
     let toastId = '';
-    switch (toastIdNumber) {
-      case 1:
+    switch (toastName) {
+      case 'search':
         toastId = 'toaster-search';
         break;
-      case 2:
+      case 'results':
         toastId = 'toaster-results';
         break;
-      case 3:
+      case 'no-results':
         toastId = 'toaster-no-results';
         break;
-      case 4:
+      case 'add-ingredient':
         toastId = 'toaster-add-ingredients';
         break;
-      case 5:
+      case 'remove-ingredient':
         toastId = 'toaster-remove-duplicates';
         break;
       default:
         toastId = 'toaster-search';
     }
 
-    var x = document.getElementById(toastId);
+    var toastDiv = document.getElementById(toastId);
 
-    x.className = 'toaster-show';
+    toastDiv.className = 'toaster-show';
 
     setTimeout(function () {
-      x.className = x.className.replace('toaster-show', 'toaster');
+      toastDiv.className = toastDiv.className.replace(
+        'toaster-show',
+        'toaster'
+      );
     }, 3000);
   }
 
@@ -79,9 +80,9 @@ const CocktailList = () => {
     for (const ingredient of ingredientsList) {
       if (ingredient != null) {
         if (shoppingList.includes(ingredient)) {
-          displayToasterMessage(5);
+          displayToasterMessage('remove-ingredient');
         } else {
-          displayToasterMessage(4);
+          displayToasterMessage('add-ingredient');
           ingredients.push(ingredient);
         }
       }
@@ -107,7 +108,7 @@ const CocktailList = () => {
   };
 
   const fetchCocktails = async (cocktailName) => {
-    displayToasterMessage(1);
+    displayToasterMessage('search');
 
     const url =
       'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' +
@@ -121,10 +122,10 @@ const CocktailList = () => {
       const json = await response.json();
 
       if (json.drinks != null) {
-        displayToasterMessage(2);
+        displayToasterMessage('results');
         setCocktailData(json.drinks);
       } else {
-        displayToasterMessage(3);
+        displayToasterMessage('no-results');
       }
     }
   };
@@ -134,8 +135,8 @@ const CocktailList = () => {
   }, [cocktailName]);
 
   return (
-    <>
-      <div className="search">
+    <div className="container">
+      <div className="search-container">
         <input
           className="search-bar"
           type="text"
@@ -151,14 +152,12 @@ const CocktailList = () => {
         </button>
       </div>
 
-      <div className="container">
-        <div className="cocktail-list">
+      <div className="main-container">
+        <div className="drink-list">
           {cocktailData.map((cocktail) => (
             <div key={cocktail.idDrink} className="drink-container">
               <img
                 className="drink-img"
-                width={250}
-                height={250}
                 src={cocktail.strDrinkThumb}
                 alt={cocktail.strDrink}
               />
@@ -230,6 +229,7 @@ const CocktailList = () => {
                   </div>
                 </div>
               </div>
+
               <button
                 className="add-drink-button"
                 title="Add to shopping list!"
@@ -292,7 +292,7 @@ const CocktailList = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
