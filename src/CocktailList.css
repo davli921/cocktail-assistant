@@ -106,6 +106,12 @@
   margin-bottom: 2.5%;
 }
 
+@media (max-width: 600px) {
+  .drink-container {
+    display: block;
+  }
+}
+
 .drink-img {
   min-width: 25%;
   margin: 5%;
@@ -120,8 +126,8 @@
 
 @media (max-width: 600px) {
   .drink-img {
-    width: 50px;
-    height: 50px;
+    width: 60%;
+    margin: 5% 20%;
   }
 }
 
@@ -135,17 +141,33 @@
   font-family: Arial;
 }
 
+@media (max-width: 600px) {
+  .drink-name {
+    width: 60%;
+    margin: 0 20%;
+  }
+}
+
 .drink-instructions {
 }
 
 @media (max-width: 600px) {
   .drink-instructions {
-    min-width: 100%;
+    width: 60%;
+    margin: 0 20%;
   }
 }
 
 .ingredients-name {
   text-align: left;
+}
+
+@media (max-width: 600px) {
+  .ingredients-name {
+    width: 60%;
+    margin: 0 20%;
+    text-align: left;
+  }
 }
 
 .add-drink-button {
@@ -157,6 +179,13 @@
   min-width: 40px;
   max-height: 40px;
   max-width: 40px;
+}
+
+@media (max-width: 600px) {
+  .add-drink-button {
+    width: 60%;
+    margin: 0 20% 5% 20%;
+  }
 }
 
 .toast-group {
