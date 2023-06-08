@@ -3,6 +3,29 @@
   flex-direction: row;
 }
 
+.search {
+  min-width: 50%;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.search-bar {
+  min-width: 50%;
+  height: 30px;
+  text-align: left;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.search-button {
+  height: 30px;
+  text-align: center;
+  margin-left: 5px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
 .shopping-list {
   min-width: 250px;
   border: 4px dotted transparent;

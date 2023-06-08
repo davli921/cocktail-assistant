@@ -2,15 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import './CocktailList.css';
 
 const CocktailList = () => {
-  const cocktailName = 'margarita';
+  let shoppingItem = [];
 
-  let shoppingItem = ['vodka'];
-
+  const [cocktailName, setCocktailName] = useState('margarita');
+  const [userInput, setUserInput] = useState('margarita');
   const [shoppingList, setShoppingList] = useState([shoppingItem]);
 
   const addToShoppingList = async (cocktailId) => {
-    console.log(cocktailId);
-
     const cocktailDetailsUrl =
       'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + cocktailId;
 
@@ -22,10 +20,8 @@ const CocktailList = () => {
     }
 
     const cocktailDetails = await response.json();
-    console.log(cocktailDetails);
 
     const cocktail = cocktailDetails.drinks[0];
-    console.log(cocktail);
 
     const ingredientsList = [
       cocktail.strIngredient1,
@@ -58,10 +54,7 @@ const CocktailList = () => {
       }
     }
 
-    console.log(ingredients);
-
     const newShoppingList = [...shoppingList, ...ingredients];
-    console.log(newShoppingList);
 
     setShoppingList(newShoppingList);
   };
@@ -69,130 +62,154 @@ const CocktailList = () => {
   const [cocktailData, setCocktailData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const url =
-    'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + cocktailName;
-
-  const fetchCocktails = useCallback(async () => {
+  const fetchCocktails = async (cocktailName) => {
     setLoading(true);
 
+    const url =
+      'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' +
+      cocktailName;
     const response = await fetch(url);
 
     if (!response.ok) {
       const message = `An error has occured: ${response.status}`;
       throw new Error(message);
-    }
-    const json = await response.json();
+    } else {
+      const json = await response.json();
 
-    setCocktailData(json.drinks);
+      if (json.drinks != null) {
+        setCocktailData(json.drinks);
+      } else {
+        console.log('Try searching for another drink.');
+      }
+    }
+
     setLoading(false);
-  }, []);
+  };
 
   useEffect(() => {
-    fetchCocktails();
-  }, [fetchCocktails]);
+    fetchCocktails(cocktailName);
+  }, [cocktailName]);
 
   if (loading) {
     return <></>; // Loading...
   }
   return (
-    <div className="container">
-      <div className="cocktail-list">
-        {cocktailData.map((cocktail) => (
-          <div key={cocktail.idDrink} className="drink-container">
-            <img
-              className="drink-img"
-              width={250}
-              height={250}
-              src={cocktail.strDrinkThumb}
-              alt={cocktail.strDrink}
-            />
+    <>
+      <div className="search">
+        <input
+          className="search-bar"
+          type="text"
+          size="20"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+        />
+        <button
+          className="search-button"
+          onClick={(e) => setCocktailName(userInput)}
+        >
+          Search
+        </button>
+      </div>
 
-            <div className="drink-details">
-              <h2 className="drink-name">{cocktail.strDrink}</h2>
+      <div className="container">
+        <div className="cocktail-list">
+          {cocktailData.map((cocktail) => (
+            <div key={cocktail.idDrink} className="drink-container">
+              <img
+                className="drink-img"
+                width={250}
+                height={250}
+                src={cocktail.strDrinkThumb}
+                alt={cocktail.strDrink}
+              />
 
-              <p className="drink-instructions">{cocktail.strInstructions}</p>
+              <div className="drink-details">
+                <h2 className="drink-name">{cocktail.strDrink}</h2>
 
-              <div className="ingredients-list">
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient1}</p>
-                </div>
+                <p className="drink-instructions">{cocktail.strInstructions}</p>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient2}</p>
-                </div>
+                <div className="ingredients-list">
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient1}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient3}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient2}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient4}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient3}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient5}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient4}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient6}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient5}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient7}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient6}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient8}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient7}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient9}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient8}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient10}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient9}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient11}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient10}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient12}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient11}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient13}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient12}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient14}</p>
-                </div>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient13}</p>
+                  </div>
 
-                <div className="ingredients-name">
-                  <p>{cocktail.strIngredient15}</p>
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient14}</p>
+                  </div>
+
+                  <div className="ingredients-name">
+                    <p>{cocktail.strIngredient15}</p>
+                  </div>
                 </div>
               </div>
+              <button
+                className="add-drink-button"
+                title="Add to shopping list!"
+                onClick={(e) => addToShoppingList(cocktail.idDrink)}
+              >
+                +
+              </button>
             </div>
-            <button
-              className="add-drink-button"
-              title="Add to shopping list!"
-              onClick={(e) => addToShoppingList(cocktail.idDrink)}
-            >
-              +
-            </button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <div className="shopping-list">
-        {shoppingList.map((shoppingItem) => (
-          <div key={shoppingItem}>
-            <p>{shoppingItem}</p>
-          </div>
-        ))}
+        <div className="shopping-list">
+          {shoppingList.map((shoppingItem) => (
+            <div key={shoppingItem}>
+              <p>{shoppingItem}</p>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
