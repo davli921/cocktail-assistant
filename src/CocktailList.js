@@ -4,9 +4,7 @@ import './CocktailList.css';
 const CocktailList = () => {
   const cocktailName = 'margarita';
 
-  let shoppingItem = {
-    name: 'vodka',
-  };
+  let shoppingItem = ['vodka'];
 
   const [shoppingList, setShoppingList] = useState([shoppingItem]);
 
@@ -29,23 +27,37 @@ const CocktailList = () => {
     const cocktail = cocktailDetails.drinks[0];
     console.log(cocktail);
 
-    const ingredients = [
-      { name: cocktail.strIngredient1 },
-      { name: cocktail.strIngredient2 },
-      { name: cocktail.strIngredient3 },
-      { name: cocktail.strIngredient4 },
-      { name: cocktail.strIngredient5 },
-      { name: cocktail.strIngredient6 },
-      { name: cocktail.strIngredient7 },
-      { name: cocktail.strIngredient8 },
-      { name: cocktail.strIngredient9 },
-      { name: cocktail.strIngredient10 },
-      { name: cocktail.strIngredient11 },
-      { name: cocktail.strIngredient12 },
-      { name: cocktail.strIngredient13 },
-      { name: cocktail.strIngredient14 },
-      { name: cocktail.strIngredient15 },
+    const ingredientsList = [
+      cocktail.strIngredient1,
+      cocktail.strIngredient2,
+      cocktail.strIngredient3,
+      cocktail.strIngredient4,
+      cocktail.strIngredient5,
+      cocktail.strIngredient6,
+      cocktail.strIngredient7,
+      cocktail.strIngredient8,
+      cocktail.strIngredient9,
+      cocktail.strIngredient10,
+      cocktail.strIngredient11,
+      cocktail.strIngredient12,
+      cocktail.strIngredient13,
+      cocktail.strIngredient14,
+      cocktail.strIngredient15,
     ];
+
+    let ingredients = [];
+
+    for (const ingredient of ingredientsList) {
+      if (ingredient != null) {
+        if (shoppingList.includes(ingredient)) {
+          console.log('Duplicate REMOVED!');
+        } else {
+          console.log('Ingridient added');
+          ingredients.push(ingredient);
+        }
+      }
+    }
+
     console.log(ingredients);
 
     const newShoppingList = [...shoppingList, ...ingredients];
@@ -175,8 +187,8 @@ const CocktailList = () => {
 
       <div className="shopping-list">
         {shoppingList.map((shoppingItem) => (
-          <div key={shoppingItem.name}>
-            <p>{shoppingItem.name}</p>
+          <div key={shoppingItem}>
+            <p>{shoppingItem}</p>
           </div>
         ))}
       </div>
