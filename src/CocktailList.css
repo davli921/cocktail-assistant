@@ -27,6 +27,7 @@
 }
 
 .shopping-list {
+  position: relative;
   min-width: 250px;
   min-height: 705px;
   block-size: fit-content;
@@ -36,8 +37,18 @@
   flex-direction: column;
 }
 
+.shopping-item {
+  margin: 30px;
+}
+
 .print-button {
-  margin: 10px;
+  margin: 30px;
+  text-align: center;
+
+  min-height: 40px;
+  min-width: 40px;
+  max-height: 40px;
+  max-width: 40px;
 }
 
 .cocktail-list {
@@ -84,4 +95,73 @@
   min-width: 40px;
   max-height: 40px;
   max-width: 40px;
+}
+
+.toast-group {
+  display: grid;
+  justify-items: center;
+  justify-content: center;
+  gap: 1vh;
+}
+
+.toaster {
+  visibility: hidden;
+}
+
+.toaster-show {
+  min-width: 250px;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  right: 10px;
+  bottom: 30px;
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
 }

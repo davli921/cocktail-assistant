@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './CocktailList.css';
 
 const CocktailList = () => {
@@ -8,7 +8,38 @@ const CocktailList = () => {
   const [userInput, setUserInput] = useState('margarita');
   const [shoppingList, setShoppingList] = useState([shoppingItem]);
   const [cocktailData, setCocktailData] = useState([]);
-  const [loading, setLoading] = useState(false);
+
+  function displayToasterMessage(toastIdNumber) {
+    console.log(toastIdNumber);
+    let toastId = '';
+    switch (toastIdNumber) {
+      case 1:
+        toastId = 'toaster-search';
+        break;
+      case 2:
+        toastId = 'toaster-results';
+        break;
+      case 3:
+        toastId = 'toaster-no-results';
+        break;
+      case 4:
+        toastId = 'toaster-add-ingredients';
+        break;
+      case 5:
+        toastId = 'toaster-remove-duplicates';
+        break;
+      default:
+        toastId = 'toaster-search';
+    }
+
+    var x = document.getElementById(toastId);
+
+    x.className = 'toaster-show';
+
+    setTimeout(function () {
+      x.className = x.className.replace('toaster-show', 'toaster');
+    }, 3000);
+  }
 
   const addToShoppingList = async (cocktailId) => {
     const cocktailDetailsUrl =
@@ -48,9 +79,9 @@ const CocktailList = () => {
     for (const ingredient of ingredientsList) {
       if (ingredient != null) {
         if (shoppingList.includes(ingredient)) {
-          console.log('Ingredient removed from shopping list.');
+          displayToasterMessage(5);
         } else {
-          console.log('Ingredients added to shopping list.');
+          displayToasterMessage(4);
           ingredients.push(ingredient);
         }
       }
@@ -76,7 +107,7 @@ const CocktailList = () => {
   };
 
   const fetchCocktails = async (cocktailName) => {
-    setLoading(true);
+    displayToasterMessage(1);
 
     const url =
       'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' +
@@ -90,23 +121,18 @@ const CocktailList = () => {
       const json = await response.json();
 
       if (json.drinks != null) {
-        console.log('Here are the results.');
+        displayToasterMessage(2);
         setCocktailData(json.drinks);
       } else {
-        console.log('No results found.');
+        displayToasterMessage(3);
       }
     }
-
-    setLoading(false);
   };
 
   useEffect(() => {
     fetchCocktails(cocktailName);
   }, [cocktailName]);
 
-  if (loading) {
-    return <></>; // Searching...
-  }
   return (
     <>
       <div className="search">
@@ -218,14 +244,52 @@ const CocktailList = () => {
         <div className="shopping-list">
           <div id="print-shopping-list">
             {shoppingList.map((shoppingItem) => (
-              <div key={shoppingItem}>
+              <div key={shoppingItem} className="shopping-item">
                 <p>{shoppingItem}</p>
               </div>
             ))}
           </div>
           <button className="print-button" onClick={(e) => printShoppingList()}>
-            PRINTTTTT
+            Print
           </button>
+        </div>
+
+        <div className="toast-group">
+          <div
+            className="toaster"
+            id="toaster-search"
+            style={{ backgroundColor: 'blue' }}
+          >
+            Searching...
+          </div>
+          <div
+            className="toaster"
+            id="toaster-results"
+            style={{ backgroundColor: 'green' }}
+          >
+            Here are the results.
+          </div>
+          <div
+            className="toaster"
+            id="toaster-no-results"
+            style={{ backgroundColor: 'red' }}
+          >
+            No results found.
+          </div>
+          <div
+            className="toaster"
+            id="toaster-add-ingredients"
+            style={{ backgroundColor: 'green' }}
+          >
+            Ingredients added to shopping list.
+          </div>
+          <div
+            className="toaster"
+            id="toaster-remove-duplicates"
+            style={{ backgroundColor: 'black' }}
+          >
+            Duplicated ingredient removed from shopping list.
+          </div>
         </div>
       </div>
     </>
